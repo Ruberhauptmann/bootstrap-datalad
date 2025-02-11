@@ -39,11 +39,6 @@ datalad create-sibling-ria --new-store-ok -s output "${output_store}"
 pushremote=$(git remote get-url --push output)
 datalad create-sibling-ria --new-store-ok -s input --storage-sibling off "${input_store}"
 
-# register the input dataset
-datalad clone -d . ${data} inputs/data
-# amend the previous commit with a nicer commit message
-git commit --amend -m 'Register input data dataset as a subdataset'
-
 mkdir logs
 echo logs >> .gitignore
 

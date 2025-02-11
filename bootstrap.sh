@@ -35,9 +35,9 @@ cd $source_ds
 
 # create dedicated input and output locations. Results will be pushed into the
 # output sibling and the analysis will start with a clone from the input sibling.
-datalad create-sibling-ria --new-store-ok -s output "${output_store}"
+datalad create-sibling-ria --new-store-ok --alias ${source_ds} -s output "${output_store}"
 pushremote=$(git remote get-url --push output)
-datalad create-sibling-ria --new-store-ok -s input --storage-sibling off "${input_store}"
+datalad create-sibling-ria --new-store-ok -s input --alias ${source_ds} --storage-sibling off "${input_store}"
 
 mkdir logs
 echo logs >> .gitignore

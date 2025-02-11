@@ -49,11 +49,6 @@ echo logs >> .gitignore
 
 echo .SLURM_datalad_lock >> .gitignore
 
-# cleanup - we have generated the job definitions, we do not need to keep a
-# massive input dataset around. Having it around wastes resources and makes many
-# git operations needlessly slow
-datalad uninstall -r --nocheck inputs/data
-
 # make sure the fully configured output dataset is available from the designated
 # store for initial cloning and pushing the results.
 datalad push --to input

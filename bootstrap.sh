@@ -37,12 +37,6 @@ cd $source_ds
 # output sibling and the analysis will start with a clone from the input sibling.
 datalad create-sibling-ria --new-store-ok -s output "${output_store}"
 pushremote=$(git remote get-url --push output)
-datalad create-sibling-ria --new-store-ok -s input --storage-sibling off "${input_store}"
-
-# register the input dataset
-datalad clone -d . ${data} inputs/data
-# amend the previous commit with a nicer commit message
-git commit --amend -m 'Register input data dataset as a subdataset'
 
 mkdir logs
 echo logs >> .gitignore
@@ -54,14 +48,8 @@ echo logs >> .gitignore
 
 echo .SLURM_datalad_lock >> .gitignore
 
-# cleanup - we have generated the job definitions, we do not need to keep a
-# massive input dataset around. Having it around wastes resources and makes many
-# git operations needlessly slow
-datalad uninstall -r --nocheck inputs/data
-
 # make sure the fully configured output dataset is available from the designated
 # store for initial cloning and pushing the results.
-datalad push --to input
 datalad push --to output
 
 # if we get here, we are happy
